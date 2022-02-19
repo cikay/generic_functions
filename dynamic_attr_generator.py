@@ -1,8 +1,9 @@
 def dynamic_attr_generator(iterator, next_attr):
-    while True:
-        if not iterator:
-            raise StopIteration
+    if not iterator:
+        return
 
-        yield iterator
-        iterator = getattr(iterator, next_attr)
+    yield iterator
+    iterator = getattr(iterator, next_attr)
+
+    yield from dynamic_attr_generator(iterator, next_attr)
 
